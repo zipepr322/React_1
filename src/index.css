@@ -11,3 +11,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+h1, h3 {
+  padding-top: 3rem;
+  text-align: center;
+}
+
+button:first-child{
+  margin-left: 3%;
+}
+
+.done {
+  text-decoration: line-through;
+}
+
+input[placeholder] {
+  text-align: center;
+
+}
