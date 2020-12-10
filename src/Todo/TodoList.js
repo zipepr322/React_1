@@ -22,6 +22,10 @@ export default function TodoList(props) {
                     onBlurText={props.onBlurText}
                     dateSpanClick={props.dateSpanClick}
                     dateSpanBlur={props.dateSpanBlur}
+                    onBlurDateInput={props.onBlurDateInput}
+                    onClickDateInput={props.onClickDateInput}
+                    removeTodo={props.removeTodo}
+                    getDate={props.getDate}
                 />
             })}
         </ul>
