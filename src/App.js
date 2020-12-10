@@ -1,139 +1,183 @@
 import React from 'react';
 import TodoList from "./Todo/TodoList";
-import Context from "./context";
 import AddTodo from "./Todo/AddTodo";
+import defaultTasksList from "../src/list"
 
 
 function App() {
 
-    let [todos, setTodos]= React.useState([
-        { id:1, completed: false, title:'Take out of the trash', date: new Date('10.12.14').toLocaleDateString(),visible: 'block', invisible: 'none'},
-        { id:2, completed: false, title:'Walk the dog' , date: new Date('05.11.19').toLocaleDateString(),visible: 'block', invisible: 'none' },
-        { id:3, completed: false, title:'Finish term paper' , date: new Date('10.12.18').toLocaleDateString(),visible: 'block', invisible: 'none' },
-        { id:4, completed: false, title:'Watch Interstellar' , date: new Date('12.31.20').toLocaleDateString(),visible: 'block', invisible: 'none'},
-        { id:5, completed: false, title:'Get food for dinner' , date: new Date('08.10.20').toLocaleDateString(),visible: 'block', invisible: 'none'},
-        { id:6, completed: false, title:'Sleep', date: new Date('06.06.1666').toLocaleDateString(),visible: 'block', invisible: 'none' },
-    ]);
+    const defaultList = JSON.parse(JSON.stringify(defaultTasksList));
+    const [todos, setTodos]= React.useState(defaultList);
+
+    const getDate=(value)=>{
+        return new Date(value).toLocaleDateString()
+    };
 
 
-    function toggleTodo(id) {
-        setTodos (todos.map(todo=>{
+
+    const toggleTodo=(id,value)=> {
+       const editedArr=todos.map(todo=>{
             if (todo.id === id){
-                todo.completed = !todo.completed
+                if(todo.invisible === 'none'){
+                    todo.completed = !todo.completed;
+                }
+                if (todo.invisible === 'flex' && value === ''){
+                    todo.invisible='none';
+                    todo.visible='block';
+                    todo.completed = false;
+                }
+                if (todo.invisible === 'flex' && value !== ''){
+                    todo.invisible='none';
+                    todo.visible='block';
+                    todo.title=value;
+                    todo.completed = false;
+                }
             }
             return todo
-        })
-        )
-    }
+        });
+        setTodos(editedArr);
+    };
 
 
-    function removeTodo(id) {
-        setTodos(todos.filter(todo=>todo.id !==id))
-    }
+    const removeTodo=(id)=> {
+        const editedArr=todos.filter(todo=>todo.id !==id);
+        setTodos(editedArr)
+    };
 
-    function addTodo(title) {
-        setTodos(todos.concat([
-            {
+    const addTodo=(title)=> {
+        const newElem=[{
             title,
             id: Date.now(),
             completed:false,
             date: new Date().toLocaleDateString(),
             visible: 'block',
-            invisible: 'none'
-            }
-            ]))
-    }
+            invisible: 'none',
+            dateVisible: false,
+        }],
+        editedArr= (newElem.concat(todos));
+        setTodos(editedArr);
+    };
 
 
-    function onBlurText(value, innerTodo) {
-
-        setTodos(todos.map(todo=>{
+    const onBlurText=(value, innerTodo)=> {
+        const editedArr = todos.map(todo=>{
             if (todo.id === innerTodo.id && value.trim() !== ''){
                 todo.title = value;
+                todo.completed = true;
                 todo.visible = 'block';
                 todo.invisible = 'none';
-                todo.date= new Date().toLocaleDateString()
+                todo.date= new Date().toLocaleDateString();
+
             }
             if (todo.id !== innerTodo.id || value.trim() === ''){
                 todo.visible='block';
                 todo.invisible='none'
             }
             return todo
-            })
-        )
-    }
+        });
+        setTodos(editedArr)
+    };
 
 
-    function spanCorrect(elem, value, event) {
-        setTodos (todos.map(todo=>{
-                if (todo.id === elem.id && elem.visible==='block'){
-                    elem.visible='none';
-                    elem.invisible='flex';
-                }
-                if(todo.id !== elem.id && todo.visible ==='none'){
+    const spanCorrect=(elem, value, event)=> {
+        const editedArr= todos.map(todo=>{
+            if (todo.id === elem.id && elem.visible==='block'){
+                elem.visible='none';
+                elem.invisible='flex';
+            }
+            if(todo.id !== elem.id && todo.visible ==='none'){
                 todo.visible = 'block';
                 todo.invisible = 'none'
-                }
+            }
+            return todo
+        });
+        setTodos (editedArr)
+    };
 
-                return todo
-            })
-        )
-        }
+    const dateSpanClick=(innerId)=> {
+        const editedArr=todos.map(todo=>{
+            if (todo.id === innerId && todo.dateVisible===false ){
+                todo.dateVisible= !todo.dateVisible;
+                // console.log(event.target.value)
+            }
+            if (todo.id !== innerId){
+                todo.dateVisible=false;
+            }
+            return todo
+        });
+        setTodos (editedArr)
+    };
 
-        function dateSpanClick(innerTodo, event) {
-            console.log(innerTodo);
-            console.log(event);
-            setTodos (todos.map(todo=>{
-                    if (todo.id === innerTodo.id ){
-                        todo.date = <input type="date" />;
-                    }
-                    // if (todo.id === innerTodo.id && typeof todo.date !=="string" && event.target.value !== null || event.target.value !== undefined){
-                    //     todo.date = event.target.value;
-                    // }
-                    return todo
-                })
-            )
-        }
+   const dateSpanBlur=(innerTodo, event)=>{
+       const editedArr=todos.map(todo=>{
+           if (todo.id === innerTodo.id && event.target.value !== 'undefined' && event.target.value !== ''){
+               todo.date = new Date(event.target.value).toLocaleDateString()
+           }
+           return todo
+       });
+       setTodos (editedArr)
+    };
 
-       function dateSpanBlur(innerTodo, event){
-           setTodos (todos.map(todo=>{
-                   if (todo.id === innerTodo.id && event.target.value !== 'undefined' && event.target.value !== ''){
-                       // new Date().toLocaleDateString()
-                       todo.date = new Date(event.target.value).toLocaleDateString()
-                   }
-                   return todo
-               })
-           )
-    }
+    const onFocusAddTodo=(event,value)=>{
+        const editedArr=todos.concat([
+            {
+                title: value,
+                id: Date.now(),
+                completed:false,
+                date: new Date().toLocaleDateString(),
+                visible: 'block',
 
-
-    function onFocusAddTodo(event,value){
+                invisible: 'none'
+            }
+        ]);
         if (event.key === 'Key'){
-            setTodos(todos.concat([
-                {
-                    title: value,
-                    id: Date.now(),
-                    completed:false,
-                    date: new Date().toLocaleDateString(),
-                    visible: 'block',
-                    invisible: 'none'
-                }
-            ]))
+            setTodos(editedArr)
         }
+    };
 
-    }
+    const onBlurDateInput=(innerId,value)=>{
+        const editedArr=todos.map(todo=>{
+            if (innerId===todo.id){
+                todo.dateVisible= !todo.dateVisible;
+                todo.date=getDate(value);
+                return todo
+            }
+            return todo
+        });
+        setTodos(editedArr)
+    };
+
+    const onClickDateInput=(innerId,value)=>{
+        const editedArr=todos.map(todo=>{
+            if (innerId !== todo.id){
+                todo.dateVisible=false;
+            }
+            return todo
+        });
+        setTodos(editedArr);
+    };
 
 
   return (
-      <Context.Provider value={{ removeTodo }}>
+
         <div className="App" >
             <h1>My Todo List</h1>
             <AddTodo onCreate={addTodo}  onFocusAddTodo={onFocusAddTodo}/>
             {todos.length
-                ? (<TodoList todos={todos} onToggle={toggleTodo} onSpanCorrect={spanCorrect} onBlurText={onBlurText}  dateSpanClick={dateSpanClick} dateSpanBlur={dateSpanBlur}/>)
+                ? (<TodoList todos={todos}
+                             onToggle={toggleTodo}
+                             onSpanCorrect={spanCorrect}
+                             onBlurText={onBlurText}
+                             dateSpanClick={dateSpanClick}
+                             dateSpanBlur={dateSpanBlur}
+                             onBlurDateInput={onBlurDateInput}
+                             onClickDateInput={onClickDateInput}
+                             removeTodo={removeTodo}
+                             getDate={getDate}
+                />)
+
                 : (<h3>no todos!</h3>)}
         </div>
-      </Context.Provider>
   );
 }
 
