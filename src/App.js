@@ -136,10 +136,11 @@ function App() {
     };
 
     const onBlurDateInput=(innerId,value)=>{
+        // const changedValue=value.split('-').reverse().join('.');
         const editedArr=todos.map(todo=>{
             if (innerId===todo.id){
                 todo.dateVisible= !todo.dateVisible;
-                todo.date=getDate(value);
+                // todo.date=((value)=>{getDate(value)});
                 return todo
             }
             return todo

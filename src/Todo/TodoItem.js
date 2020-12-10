@@ -50,7 +50,7 @@ export default function TodoItem({ todo, doneClick, spanCorrect, onBlurText , da
                          value={dateValue}
                          onBlur={() => onBlurDateInput(todo.id, value)}
                          onClick={() => onClickDateInput(todo.id, value)}/>
-                : getDate(todo.date)
+                : getDate(todo.date.split('.').reverse().join('-'))
             }
             </span>
         </div>

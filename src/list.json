@@ -1,9 +1,9 @@
 [
-  { "id":1, "completed": false, "title":"Take out of the trash", "date": "10.12.14","visible": "block", "invisible": "none", "dateVisible":false},
-  { "id":2, "completed": false, "title":"Walk the dog" , "date": "05.11.19","visible": "block", "invisible": "none", "dateVisible":false },
-  { "id":3, "completed": false, "title":"Finish term paper" , "date": "10.12.18","visible": "block", "invisible": "none", "dateVisible":false},
-  { "id":4, "completed": false, "title":"Watch Interstellar" , "date": "12.31.20","visible": "block", "invisible": "none", "dateVisible":false},
-  { "id":5, "completed": false, "title":"Get food for dinner" , "date": "08.10.20","visible": "block", "invisible": "none", "dateVisible":false},
+  { "id":1, "completed": false, "title":"Take out of the trash", "date": "14.12.2014","visible": "block", "invisible": "none", "dateVisible":false},
+  { "id":2, "completed": false, "title":"Walk the dog" , "date": "05.11.2019","visible": "block", "invisible": "none", "dateVisible":false },
+  { "id":3, "completed": false, "title":"Finish term paper" , "date": "10.12.2018","visible": "block", "invisible": "none", "dateVisible":false},
+  { "id":4, "completed": false, "title":"Watch Interstellar" , "date": "31.12.2020","visible": "block", "invisible": "none", "dateVisible":false},
+  { "id":5, "completed": false, "title":"Get food for dinner" , "date": "08.10.2020","visible": "block", "invisible": "none", "dateVisible":false},
   { "id":6, "completed": false, "title":"Sleep", "date": "06.06.1666","visible": "block", "invisible": "none" , "dateVisible":false}
 ]
 
