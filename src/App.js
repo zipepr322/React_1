@@ -13,13 +13,15 @@ function App() {
         return new Date(value).toLocaleDateString()
     };
 
-
-
-    const toggleTodo=(id,value)=> {
+    const toggleTodo=(innerTodo,value)=> {
        const editedArr=todos.map(todo=>{
-            if (todo.id === id){
-                if(todo.invisible === 'none'){
+            if (todo.id === innerTodo.id){
+                if(todo.invisible === 'none' && todo.toggleValidate === false){
                     todo.completed = !todo.completed;
+                    todo.toggleValidate = false;
+                }
+                if(todo.invisible === 'none' && todo.toggleValidate === true){
+                    todo.toggleValidate = false;
                 }
                 if (todo.invisible === 'flex' && value === ''){
                     todo.invisible='none';
@@ -63,10 +65,11 @@ function App() {
         const editedArr = todos.map(todo=>{
             if (todo.id === innerTodo.id && value.trim() !== ''){
                 todo.title = value;
-                todo.completed = true;
+                todo.completed = false;
                 todo.visible = 'block';
                 todo.invisible = 'none';
-                todo.date= new Date().toLocaleDateString();
+                todo.date = new Date().toLocaleDateString();
+                todo.toggleValidate = true;
 
             }
             if (todo.id !== innerTodo.id || value.trim() === ''){

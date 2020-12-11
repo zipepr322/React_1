@@ -28,14 +28,14 @@ export default function TodoItem({ todo, doneClick, spanCorrect, onBlurText , da
     return(
 
 
-        <div style={itemsStyle.div} className='d-flex'>
+        <div style={itemsStyle.div} className='d-flex align-items-center'>
             <button className='btn btn-danger' onClick={ ()=> removeTodo(todo.id) }>&times;</button>
-            <button className='btn btn-success' onClick={()=> doneClick(todo.id,value)}>&#128504;</button>
-            <li style={{display: todo.visible, textAlign: 'center', width: '70%'}}
+            <button className='btn btn-success' onClick={()=> doneClick(todo,value)}>&#128504;</button>
+            <div style={{display: todo.visible, textAlign: 'center', width: '70%', wordWrap:'break-word'}}
                 className={classes.join(' ')}
                 onClick={() => spanCorrect(todo, value)}
             >{todo.title}
-            </li>
+            </div>
             <input value={value}
                    type="text"
                    style={{display: todo.invisible, width:'70%'}}
