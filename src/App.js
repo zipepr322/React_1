@@ -16,12 +16,12 @@ function App() {
     const toggleTodo=(innerTodo,value)=> {
        const editedArr=todos.map(todo=>{
             if (todo.id === innerTodo.id){
-                if(todo.invisible === 'none' && todo.toggleValidate === false){
+                if(todo.invisible === 'none' && todo.toggleValid === false){
                     todo.completed = !todo.completed;
-                    todo.toggleValidate = false;
+                    todo.toggleValid = false;
                 }
-                if(todo.invisible === 'none' && todo.toggleValidate === true){
-                    todo.toggleValidate = false;
+                if(todo.invisible === 'none' && todo.toggleValid === true){
+                    todo.toggleValid = false;
                 }
                 if (todo.invisible === 'flex' && value === ''){
                     todo.invisible='none';
@@ -69,7 +69,7 @@ function App() {
                 todo.visible = 'block';
                 todo.invisible = 'none';
                 todo.date = new Date().toLocaleDateString();
-                todo.toggleValidate = true;
+                todo.toggleValid = true;
 
             }
             if (todo.id !== innerTodo.id || value.trim() === ''){
