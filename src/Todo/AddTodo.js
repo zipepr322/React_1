@@ -6,7 +6,7 @@ export default function AddTodo({onCreate, onFocusAddTodo}){
     const [dateTime, setDateTime]=useState(new Date().toLocaleString());
 
     useEffect(()=>{
-        setInterval(()=>setDateTime(new Date().toLocaleString()),1200)
+        setInterval(()=>setDateTime(new Date().toLocaleString()),1000)
     });
 
     const submitHandler=(event)=> {
