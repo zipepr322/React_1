@@ -1,7 +1,7 @@
 import React from 'react';
-import TodoList from "./Todo/TodoList";
-import AddTodo from "./Todo/AddTodo";
 import defaultTasksList from "../src/list"
+import NavBlock from "./components/Nav/NavBlock";
+import TaskBlock from "./components/Task/TaskBlock";
 
 
 function App() {
@@ -55,6 +55,7 @@ function App() {
             visible: 'block',
             invisible: 'none',
             dateVisible: false,
+            toggleValid: false
         }],
         editedArr= (newElem.concat(todos));
         setTodos(editedArr);
@@ -166,9 +167,9 @@ function App() {
 
         <div className="App" >
             <h1>My Todo List</h1>
-            <AddTodo onCreate={addTodo}  onFocusAddTodo={onFocusAddTodo}/>
+            <NavBlock onCreate={addTodo}  onFocusAddTodo={onFocusAddTodo}/>
             {todos.length
-                ? (<TodoList todos={todos}
+                ? (<TaskBlock todos={todos}
                              onToggle={toggleTodo}
                              onSpanCorrect={spanCorrect}
                              onBlurText={onBlurText}
